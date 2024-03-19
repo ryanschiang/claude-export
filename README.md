@@ -26,10 +26,80 @@ Exports the active Claude chat log directly from the browser console.
 1. Copy contents of [`/dist/json.min.js`](./dist/json.min.js)
 2. Paste into browser console
 
+#### Example output (JSON):
+
+```json
+{
+    "meta": {
+        "exported_at": "2024-03-19 16:03:09",
+        "title": "Sending Javascript Requests"
+    },
+    "chats": [
+        {
+            "index": 0,
+            "type": "prompt",
+            "message": [
+                {
+                    "type": "p",
+                    "data": "How can I send a request in Javascript?"
+                }
+            ]
+        },
+        {
+            "index": 1,
+            "type": "response",
+            "message": [
+                {
+                    "type": "p",
+                    "data": "In JavaScript, you can send a request using the built-in fetch function or the XMLHttpRequest object. Here's an example using fetch:"
+                },
+                {
+                    "type": "pre",
+                    "language": "javascript",
+                    "data": "fetch('https://api.example.com/data')\n  .then(response => response.json())\n  .then(data => {\n    // Handle the response data\n    console.log(data);\n  })\n  .catch(error => {\n    // Handle any errors\n    console.error('Error:', error);\n  });"
+                },
+                {
+                    "type": "p",
+                    "data": "In this example, fetch sends a GET request to the specified URL (https://api.example.com/data). The then block is used to handle the response. The first then converts the response to JSON format using response.json(), and the second then receives the parsed JSON data, which you can then process as needed."
+                },
+                // ...
+        },
+    ]
+}
+```
+
 ### Markdown
 
 1. Copy contents of [`/dist/md.min.js`](./dist/md.min.js)
 2. Paste into browser console
+
+#### Example output (Markdown):
+
+```markdown
+# Sending Javascript Requests
+`2024-03-19 16:04:20`
+
+_Prompt_:
+How can I send a request in Javascript?
+
+_Claude_:
+In JavaScript, you can send a request using the built-in fetch function or the XMLHttpRequest object. Here's an example using fetch:
+
+```javascript
+fetch('https://api.example.com/data')
+  .then(response => response.json())
+  .then(data => {
+    // Handle the response data
+    console.log(data);
+  })
+  .catch(error => {
+    // Handle any errors
+    console.error('Error:', error);
+  });
+```
+
+In this example, fetch sends a GET request to the specified URL (https://api.example.com/data). The then block is used to handle the response. The first then converts the response to JSON format using response.json(), and the second then receives the parsed JSON data, which you can then process as needed.
+```
 
 ### Image (.PNG)
 
