@@ -1,4 +1,4 @@
-# Export Anthropic Claude Conversations (claude-export)
+# Export/Download Claude Conversations (claude-export)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-green)](
     ./LICENSE
@@ -7,6 +7,8 @@
 Format and download Anthropic Claude conversations to markdown, JSON, and PNG for sharing and exporting chat logs.
 
 Exports the active Claude chat log directly from the browser console.
+
+**Supports the latest Claude web UI as of March 19, 2024.**
 
 ## Usage
 
