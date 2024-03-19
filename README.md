@@ -8,42 +8,22 @@ Exports the active Claude chat log directly from the browser console.
 
  1. Navigate to [claude.ai](https://claude.ai).
  2. Open the chat thread you'd like to export.
- 3. Follow the below steps depending on which output type you'd like.
+ 3. Open the browser console (how to open console: [Chrome](https://developer.chrome.com/docs/devtools/open), [Firefox](https://firefox-source-docs.mozilla.org/devtools-user/), [Safari](https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/Web_Inspector_Tutorial/EnableWebInspector/EnableWebInspector.html))
+ 4. Follow the below steps depending on which output type you'd like.
 
 ### JSON
 
-1. Open browser console
-2. Copy and paste this function:
-
-`fetch('https://raw.githubusercontent.com/ryanschiang/claude-export/main/dist/json.min.js').then(response => response.text()).then(text => eval(text))`
-
-OR:
-
-1. Copy contents of `/dist/json.min.js`
+1. Copy contents of [`/dist/json.min.js`](./dist/json.min.js)
 2. Paste into browser console
 
 ### Markdown
 
-1. Open browser console
-2. Copy and paste this function:
-
-`fetch('https://raw.githubusercontent.com/ryanschiang/claude-export/main/dist/md.min.js').then(response => response.text()).then(text => eval(text))`
-
-OR:
-
-1. Copy contents of `/dist/md.min.js`
+1. Copy contents of [`/dist/md.min.js`](./dist/md.min.js)
 2. Paste into browser console
 
 ### Image (.PNG)
 
-1. Open browser console
-2. Copy and paste this function:
-
-`fetch('https://raw.githubusercontent.com/ryanschiang/claude-export/main/dist/image.min.js').then(response => response.text()).then(text => eval(text))`
-
-OR:
-
-1. Copy contents of `/dist/image.min.js`
+1. Copy contents of [`/dist/image.min.js`](./dist/image.min.js)
 2. Paste into browser console
 
 #### Example output:
