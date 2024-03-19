@@ -61,5 +61,5 @@ It currently supports:
 ## Future Development
 
 - [ ] Nested code blocks (within lists)
-- [ ] Trim whitespace on exported images
 - [ ] Fix syntax highlighting
+- [x] Trim whitespace on exported images
