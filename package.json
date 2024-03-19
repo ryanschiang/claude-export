@@ -1,20 +1,20 @@
 {
-  "name": "chatgpt-export",
+  "name": "claude-export",
   "version": "0.0.1",
-  "description": "Format and download ChatGPT conversations to markdown, JSON, and PNG for sharing and exporting chat logs.",
+  "description": "Format and download Anthropic Claude conversations to markdown, JSON, and PNG for sharing and exporting chat logs.",
   "scripts": {
     "build": "npx webpack --mode production"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ryanschiang/chatgpt-export.git"
+    "url": "git+https://github.com/ryanschiang/claude-export.git"
   },
   "author": "https://github.com/ryanschiang",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ryanschiang/chatgpt-export/issues"
+    "url": "https://github.com/ryanschiang/claude-export/issues"
   },
-  "homepage": "https://github.com/ryanschiang/chatgpt-export#readme",
+  "homepage": "https://github.com/ryanschiang/claude-export#readme",
   "devDependencies": {
     "@babel/core": "^7.21.4",
     "@babel/preset-env": "^7.21.4",
