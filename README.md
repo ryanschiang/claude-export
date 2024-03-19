@@ -85,7 +85,7 @@ How can I send a request in Javascript?
 _Claude_:
 In JavaScript, you can send a request using the built-in fetch function or the XMLHttpRequest object. Here's an example using fetch:
 
-```javascript
+\`\`\`javascript
 fetch('https://api.example.com/data')
   .then(response => response.json())
   .then(data => {
@@ -96,7 +96,7 @@ fetch('https://api.example.com/data')
     // Handle any errors
     console.error('Error:', error);
   });
-```
+\`\`\`
 
 In this example, fetch sends a GET request to the specified URL (https://api.example.com/data). The then block is used to handle the response. The first then converts the response to JSON format using response.json(), and the second then receives the parsed JSON data, which you can then process as needed.
 ```
