@@ -62,7 +62,7 @@ Exports the active Claude chat log directly from the browser console.
                     "type": "p",
                     "data": "In this example, fetch sends a GET request to the specified URL (https://api.example.com/data). The then block is used to handle the response. The first then converts the response to JSON format using response.json(), and the second then receives the parsed JSON data, which you can then process as needed."
                 },
-                // ...
+            ]
         },
     ]
 }
