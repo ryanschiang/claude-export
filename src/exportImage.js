@@ -1,6 +1,6 @@
 const getTimestamp = require("./util/getTimestamp");
 const getContents = require("./util/getContents");
-const html2canvas = require("./lib/html2canvas.min");
+const html2canvas = require("html2canvas");
 
 (function exportImage() {
   const captureElement = document.querySelector(
