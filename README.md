@@ -34,6 +34,9 @@ Exports the active Claude chat log directly from the browser console.
 1. Copy contents of [`/dist/image.min.js`](./dist/image.min.js)
 2. Paste into browser console
 
+> [!NOTE]  
+> Downloading as an image uses the `html2canvas` library to take a screenshot of the chat log. This may take a few seconds to process.
+
 #### Example output (Image Export):
 ![alt text](./public/claude-export-example.png "claude-export Example Output")
 
@@ -46,6 +49,10 @@ It currently supports:
 - Lists
 - Code blocks
 - Tables
+
+## Acknowledgements
+
+- [html2canvas](https://github.com/niklasvh/html2canvas) - Used to take a screenshot of the chat log and export as a PNG.
 
 ## You May Also Like
 
