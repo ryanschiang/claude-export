@@ -35,6 +35,8 @@ const getContents = require('./util/getContents');
       // Prefix Claude response label
       if (ele.classList.contains("font-claude-message")) {
         object.type = "response";
+      } else {
+        object.type = "prompt";
       }
 
       // Parse child elements
