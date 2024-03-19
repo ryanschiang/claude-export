@@ -1,4 +1,8 @@
-# claude-export
+# Export Anthropic Claude Conversations
+
+[![GitHub license](https://img.shields.io/github/license/ryanschiang/claude-export)](
+    ./LICENSE
+)
 
 Format and download Anthropic Claude conversations to markdown, JSON, and PNG for sharing and exporting chat logs.
 
@@ -26,7 +30,7 @@ Exports the active Claude chat log directly from the browser console.
 1. Copy contents of [`/dist/image.min.js`](./dist/image.min.js)
 2. Paste into browser console
 
-#### Example output:
+#### Example output (Image Export):
 ![alt text](./public/claude-export-example.png "claude-export Example Output")
 
 ## Limitations
@@ -38,6 +42,10 @@ It currently supports:
 - Lists
 - Code blocks
 - Tables
+
+## You May Also Like
+
+[`chatgpt-export`](https://github.com/ryanschiang/chatgpt-export) - Export OpenAI ChatGPT conversations to markdown, JSON, and PNG for sharing and exporting chat logs.
 
 ## Future Work
 
