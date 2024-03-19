@@ -1,6 +1,6 @@
 # Export Anthropic Claude Conversations (claude-export)
 
-[![GitHub license](https://img.shields.io/github/license/ryanschiang/claude-export)](
+[![GitHub license](https://img.shields.io/badge/license-MIT-green)](
     ./LICENSE
 )
 
