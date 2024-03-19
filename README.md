@@ -47,8 +47,8 @@ It currently supports:
 
 [`chatgpt-export`](https://github.com/ryanschiang/chatgpt-export) - Export OpenAI ChatGPT conversations to markdown, JSON, and PNG for sharing and exporting chat logs.
 
-## Future Work
+## Future Development
 
-[ ] Nested code blocks (within lists)
-[ ] Trim whitespace on exported images
-[ ] Fix syntax highlighting
+- [ ] Nested code blocks (within lists)
+- [ ] Trim whitespace on exported images
+- [ ] Fix syntax highlighting
