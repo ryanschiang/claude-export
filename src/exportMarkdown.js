@@ -9,7 +9,7 @@ const getContents = require("./util/getContents");
   const { elements, title } = getContents();
 
   var timestamp = getTimestamp();
-  markdown += `\#${title || "Claude Chat"}\n\`${timestamp}\`\n\n`;
+  markdown += `\# ${title || "Claude Chat"}\n\`${timestamp}\`\n\n`;
 
   for (var i = 0; i < elements.length; i++) {
     var ele = elements[i];
