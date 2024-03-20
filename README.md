@@ -135,5 +135,6 @@ It currently supports:
 ## Future Development
 
 - [ ] Nested code blocks (within lists)
-- [ ] Fix syntax highlighting
+- [ ] Nested lists 
+- [x] Fix syntax highlighting
 - [x] Trim whitespace on exported images
