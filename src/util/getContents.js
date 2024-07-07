@@ -1,7 +1,7 @@
 module.exports = function () {
     // Get parent chat container
     const chatContainer = document.querySelector(
-        "div.flex-1.flex.flex-col.gap-3.px-4.pt-16"
+        "div.flex-1.flex.flex-col.gap-3.px-4.pt-1"
     );
 
     // Get chat title (if exists)
