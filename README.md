@@ -4,7 +4,7 @@
     ./LICENSE
 )
 
-![Working as of March 20, 2024](https://img.shields.io/badge/working%20as%20of-%20march%2020,%202024-blue)
+![Working as of September 24, 2024](https://img.shields.io/badge/working%20as%20of-%20september%2024,%202024-blue)
 
 This browser script formats and downloads Anthropic Claude conversations to markdown, JSON, and PNG for sharing and exporting chat logs.
 
