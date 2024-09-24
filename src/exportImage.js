@@ -4,11 +4,12 @@ const html2canvas = require("html2canvas");
 
 (function exportImage() {
     const captureElement = document.querySelector(
-        "div.flex-1.flex.flex-col.gap-3.px-4.pt-16"
+        "div.flex-1.flex.flex-col.gap-3.px-4"
     );
     const prompts = document.querySelectorAll(
         "div.font-user-message"
     );
+
     prompts.forEach((prompt) => {
         prompt.style.position = "relative";
     });
@@ -18,6 +19,7 @@ const html2canvas = require("html2canvas");
     style.sheet?.insertRule(
         "body > div:last-child img { display: inline-block; }"
     );
+
 
     const { title } = getContents();
     let filename = title
@@ -54,11 +56,13 @@ const html2canvas = require("html2canvas");
         foreignObjectRendering: false,
     })
         .then((canvas) => {
+            console.log("HERE3", canvas);
             canvas.style.display = "none";
             document.body.appendChild(canvas);
             return canvas;
         })
         .then((canvas) => {
+            console.log("HERE4", canvas);
             const image = canvas.toDataURL("image/png");
             const a = document.createElement("a");
             a.setAttribute("download", `${filename}.png`);
