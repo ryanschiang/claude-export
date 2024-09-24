@@ -4,7 +4,6 @@ const getContents = require("./util/getContents");
 
 (function exportMarkdown() {
   var markdown = "";
-  // var elements = document.querySelectorAll("[class*='min-h-[20px]']");
 
   const { elements, title } = getContents();
 
@@ -20,13 +19,19 @@ const getContents = require("./util/getContents");
 
     // Element child
     if (firstChild.nodeType === Node.ELEMENT_NODE) {
-      var childNodes = firstChild.childNodes;
+      var childNodes = [];
 
       // Prefix Claude reponse label
       if (ele.classList.contains("font-claude-message")) {
         markdown += `_Claude_:\n`;
+        let secondChild = firstChild.firstChild;
+        if (!secondChild) {
+          secondChild = firstChild;
+        }
+        childNodes = secondChild.childNodes;
       } else {
         markdown += `_Prompt_:\n`;
+        childNodes = ele.childNodes;
       }
 
       // Parse child elements
@@ -67,10 +72,11 @@ const getContents = require("./util/getContents");
 
           // Code blocks
           if (tag === "PRE") {
-            const codeBlockSplit = text.split("Copy code");
-            const codeBlockLang = codeBlockSplit[0].trim();
-            const codeBlockData = codeBlockSplit[1].trim();
-            markdown += `\`\`\`${codeBlockLang}\n${codeBlockData}\n\`\`\`\n`;
+            const codeEle = childNode.querySelector("code");
+            const codeText = codeEle.textContent;
+            const codeBlockLang = codeEle.classList[0].split("-")[1];
+
+            markdown += `\`\`\`${codeBlockLang}\n${codeText}\n\`\`\`\n`;
           }
 
           // Tables
