@@ -11,13 +11,13 @@ const getContents = require('./util/getContents');
   };
 
   const { title, elements } = getContents();
+  
   if (title) {
     json.meta.title = title;
   }
 
   for (var i = 0; i < elements.length; i++) {
     var ele = elements[i];
-
     // Prepare object
     var object = {
       index: i,
@@ -30,19 +30,25 @@ const getContents = require('./util/getContents');
 
     // Element child
     if (firstChild.nodeType === Node.ELEMENT_NODE) {
-      var childNodes = firstChild.childNodes;
+      var childNodes = [];
 
       // Prefix Claude response label
       if (ele.classList.contains("font-claude-message")) {
         object.type = "response";
+        let secondChild = firstChild.firstChild;
+        if (!secondChild) {
+          secondChild = firstChild;
+        }
+        childNodes = secondChild.childNodes;
       } else {
         object.type = "prompt";
+        childNodes = ele.childNodes;
       }
 
       // Parse child elements
       for (var n = 0; n < childNodes.length; n++) {
         const childNode = childNodes[n];
-
+        
         if (childNode.nodeType === Node.ELEMENT_NODE) {
           var tag = childNode.tagName;
           var text = childNode.textContent;
@@ -85,14 +91,14 @@ const getContents = require('./util/getContents');
 
           // Code blocks
           if (tag === "PRE") {
-            const codeBlockSplit = text.split("Copy code");
-            const codeBlockLang = codeBlockSplit[0].trim();
-            const codeBlockData = codeBlockSplit[1].trim();
+            const codeEle = childNode.querySelector("code");
+            const codeText = codeEle.textContent;
+            const codeBlockLang = codeEle.classList[0].split("-")[1];
 
             message.push({
               type: "pre",
               language: codeBlockLang,
-              data: codeBlockData,
+              data: codeText,
             });
           }
 
