@@ -10,7 +10,7 @@ This browser script formats and downloads Anthropic Claude conversations to mark
 
 You can export the active Claude chat log directly from the browser console, entirely locally. No data is sent to any server.
 
-**Supports the latest Claude web UI as of March 20, 2024.**
+**Supports the latest Claude web UI as of September 24, 2024.**
 
 ## Usage
 
