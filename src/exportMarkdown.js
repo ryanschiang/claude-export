@@ -3,155 +3,104 @@ const getTimestamp = require("./util/getTimestamp");
 const getContents = require("./util/getContents");
 
 (function exportMarkdown() {
-  var markdown = "";
+  let markdown = "";
 
-  const { elements, title } = getContents();
+  const { messages, title } = getContents();
 
-  var timestamp = getTimestamp();
-  markdown += `\# ${title || "Claude Chat"}\n\`${timestamp}\`\n\n`;
+  const timestamp = getTimestamp();
+  markdown += `# ${title || "Claude Chat"}\n\`${timestamp}\`\n\n`;
 
-  for (var i = 0; i < elements.length; i++) {
-    var ele = elements[i];
+  function parseElement(node) {
+    let out = "";
+    const tag = node.tagName;
+    if (!tag) return out;
 
-    // Get first child
-    var firstChild = ele.firstChild;
-    if (!firstChild) continue;
-
-    // Element child
-    if (firstChild.nodeType === Node.ELEMENT_NODE) {
-      var childNodes = [];
-
-      // Prefix Claude reponse label
-      if (ele.classList.contains("font-claude-message")) {
-        markdown += `_Claude_:\n`;
-        let secondChild = firstChild.firstChild;
-        if (!secondChild) {
-          secondChild = firstChild;
-        }
-        childNodes = secondChild.childNodes;
+    if (tag === "P") {
+      out += node.textContent + "\n";
+    } else if (tag === "OL") {
+      let idx = 1;
+      node.querySelectorAll(":scope > li").forEach(function (li) {
+        out += idx++ + ". " + li.textContent.trim() + "\n";
+      });
+    } else if (tag === "UL") {
+      node.querySelectorAll(":scope > li").forEach(function (li) {
+        out += "- " + li.textContent.trim() + "\n";
+      });
+    } else if (tag === "PRE") {
+      const codeEle = node.querySelector("code");
+      if (codeEle) {
+        const langClass = Array.from(codeEle.classList).find(function (c) {
+          return c.startsWith("language-");
+        });
+        const lang = langClass ? langClass.replace("language-", "") : "";
+        out += "```" + lang + "\n" + codeEle.textContent + "\n```\n";
       } else {
-        markdown += `_Prompt_:\n`;
-        childNodes = ele.childNodes;
+        out += "```\n" + node.textContent + "\n```\n";
       }
-
-      // Parse child elements
-      for (var n = 0; n < childNodes.length; n++) {
-        const childNode = childNodes[n];
-
-        if (childNode.nodeType === Node.ELEMENT_NODE) {
-          var tag = childNode.tagName;
-          var text = childNode.textContent;
-          // Paragraphs
-          if (tag === "P") {
-            markdown += `${text}\n`;
-          }
-
-          // Get list items
-          if (tag === "OL") {
-            childNode.childNodes.forEach((listItemNode, index) => {
-              if (
-                listItemNode.nodeType === Node.ELEMENT_NODE &&
-                listItemNode.tagName === "LI"
-              ) {
-                markdown += `${index + 1}. ${
-                  listItemNode.textContent
-                }\n`;
-              }
-            });
-          }
-          if (tag === "UL") {
-            childNode.childNodes.forEach((listItemNode, index) => {
-              if (
-                listItemNode.nodeType === Node.ELEMENT_NODE &&
-                listItemNode.tagName === "LI"
-              ) {
-                markdown += `- ${listItemNode.textContent}\n`;
-              }
-            });
-          }
-
-          // Code blocks
-          if (tag === "PRE") {
-            const codeEle = childNode.querySelector("code");
-            const codeText = codeEle.textContent;
-            const codeBlockLang = codeEle.classList[0].split("-")[1];
-
-            markdown += `\`\`\`${codeBlockLang}\n${codeText}\n\`\`\`\n`;
-          }
-
-          // Tables
-          if (tag === "TABLE") {
-            // Get table sections
-            let tableMarkdown = "";
-            childNode.childNodes.forEach((tableSectionNode) => {
-              if (
-                tableSectionNode.nodeType === Node.ELEMENT_NODE &&
-                (tableSectionNode.tagName === "THEAD" ||
-                  tableSectionNode.tagName === "TBODY")
-              ) {
-                // Get table rows
-                let tableRows = "";
-                let tableColCount = 0;
-                tableSectionNode.childNodes.forEach(
-                  (tableRowNode) => {
-                    if (
-                      tableRowNode.nodeType === Node.ELEMENT_NODE &&
-                      tableRowNode.tagName === "TR"
-                    ) {
-                      // Get table cells
-                      let tableCells = "";
-
-                      tableRowNode.childNodes.forEach(
-                        (tableCellNode) => {
-                          if (
-                            tableCellNode.nodeType ===
-                              Node.ELEMENT_NODE &&
-                            (tableCellNode.tagName === "TD" ||
-                              tableCellNode.tagName === "TH")
-                          ) {
-                            tableCells += `| ${tableCellNode.textContent} `;
-                            if (
-                              tableSectionNode.tagName === "THEAD"
-                            ) {
-                              tableColCount++;
-                            }
-                          }
-                        }
-                      );
-                      tableRows += `${tableCells}|\n`;
-                    }
-                  }
-                );
-
-                tableMarkdown += tableRows;
-
-                if (tableSectionNode.tagName === "THEAD") {
-                  const headerRowDivider = `| ${Array(tableColCount)
-                    .fill("---")
-                    .join(" | ")} |\n`;
-                  tableMarkdown += headerRowDivider;
-                }
-              }
-            });
-            markdown += tableMarkdown;
-          }
-
-          // Paragraph break after each element
-          markdown += "\n";
-        }
+    } else if (tag === "TABLE") {
+      const thead = node.querySelector("thead");
+      const tbody = node.querySelector("tbody");
+      if (thead) {
+        const ths = thead.querySelectorAll("th");
+        out +=
+          "| " +
+          Array.from(ths)
+            .map(function (th) { return th.textContent; })
+            .join(" | ") +
+          " |\n";
+        out +=
+          "| " +
+          Array.from(ths)
+            .map(function () { return "---"; })
+            .join(" | ") +
+          " |\n";
       }
+      if (tbody) {
+        tbody.querySelectorAll("tr").forEach(function (tr) {
+          const tds = tr.querySelectorAll("td");
+          out +=
+            "| " +
+            Array.from(tds)
+              .map(function (td) { return td.textContent; })
+              .join(" | ") +
+            " |\n";
+        });
+      }
+    } else if (
+      tag === "H1" ||
+      tag === "H2" ||
+      tag === "H3" ||
+      tag === "H4"
+    ) {
+      const level = parseInt(tag[1]) + 1;
+      out += "#".repeat(level) + " " + node.textContent + "\n";
+    } else if (tag === "BLOCKQUOTE") {
+      out += "> " + node.textContent.trim() + "\n";
     }
 
-    // Text child
-    if (firstChild.nodeType === Node.TEXT_NODE) {
-      // Prefix User prompt label
-      // markdown += `_Prompt_: \n`;
-      // markdown += `${firstChild.textContent}\n`;
-
-      // End of prompt paragraphs breaks
-      markdown += "\n";
-    }
+    return out;
   }
+
+  messages.forEach(function (msg) {
+    if (msg.role === "user") {
+      markdown += "_Prompt_:\n";
+      const paragraphs = msg.el.querySelectorAll(":scope > p");
+      if (paragraphs.length > 0) {
+        paragraphs.forEach(function (p) {
+          markdown += p.textContent + "\n";
+        });
+      } else {
+        markdown += msg.el.textContent.trim() + "\n";
+      }
+    } else {
+      markdown += "_Claude_:\n";
+      const children = msg.el.children;
+      for (let i = 0; i < children.length; i++) {
+        markdown += parseElement(children[i]);
+      }
+    }
+    markdown += "\n";
+  });
 
   // Save to file
   consoleSave(console, "md", title);

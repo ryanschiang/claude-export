@@ -14,13 +14,13 @@ module.exports = function (console, fileType, title = "") {
       filename += ".md";
     }
 
-    var blob = new Blob([data], { type: mimeType });
-    var a = document.createElement("a");
+    const blob = new Blob([data], { type: mimeType });
+    const a = document.createElement("a");
 
     a.download = filename;
     a.href = window.URL.createObjectURL(blob);
     a.dataset.downloadurl = [mimeType, a.download, a.href].join(":");
-    var e = new MouseEvent("click", {
+    const e = new MouseEvent("click", {
       canBubble: true,
       cancelable: false,
       view: window,
