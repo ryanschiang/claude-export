@@ -4,10 +4,10 @@ const html2canvas = require("html2canvas");
 
 (function exportImage() {
     const captureElement = document.querySelector(
-        "div.flex-1.flex.flex-col.gap-3.px-4"
-    );
+        "[data-testid='user-message']"
+    ).closest("div.flex.flex-col") || document.querySelector("main");
     const prompts = document.querySelectorAll(
-        "div.font-user-message"
+        "[data-testid='user-message']"
     );
 
     prompts.forEach((prompt) => {
@@ -22,7 +22,7 @@ const html2canvas = require("html2canvas");
 
 
     const { title } = getContents();
-    let filename = title
+    const filename = title
         ? title
               .trim()
               .toLowerCase()

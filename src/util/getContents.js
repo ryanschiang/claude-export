@@ -1,22 +1,32 @@
 module.exports = function () {
-    // Get parent chat container
-    const chatContainer = document.querySelector(
-        "div.flex-1.flex.flex-col.gap-3.px-4"
-    );
-
     // Get chat title (if exists)
     const titleEle = document.querySelector(
         "button[data-testid='chat-menu-trigger']"
     );
     const titleText = titleEle ? titleEle.textContent : "";
 
-    // Find all chat elements
-    const elements = chatContainer.querySelectorAll(
-        "div.font-claude-message, div.font-user-message"
-    );
+    // Collect user and assistant messages with DOM order
+    const userMessages = document.querySelectorAll('[data-testid="user-message"]');
+    const assistantMessages = document.querySelectorAll('div.standard-markdown');
+
+    const allMessages = [];
+    userMessages.forEach(el => {
+        allMessages.push({ role: 'user', el });
+    });
+    assistantMessages.forEach(el => {
+        allMessages.push({ role: 'assistant', el });
+    });
+
+    // Sort by document order
+    allMessages.sort((a, b) => {
+        const pos = a.el.compareDocumentPosition(b.el);
+        if (pos & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
+        if (pos & Node.DOCUMENT_POSITION_PRECEDING) return 1;
+        return 0;
+    });
 
     return {
-        elements,
+        messages: allMessages,
         title: titleText,
     };
 };
